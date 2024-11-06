@@ -65,17 +65,19 @@ const TransactionHistory = ({ hiveUsername }) => {
               transition={{ duration: 0.4, delay: idx * 0.1 }}
             >
               <h4 className="text-xl font-semibold text-blue-600 mb-2">{operationType}</h4>
-              <p className="text-gray-600">Transaction ID: {trx_id}</p>
-              <p className="text-gray-600">Block: {block}</p>
-              <p className="text-gray-600">Timestamp: {new Date(timestamp).toLocaleString()}</p>
+              <p className="text-white">
+                <span style={{ fontWeight: 'bold', color:"#f3ac12" }}>Transaction ID:</span> {transaction.trx_id}
+              </p>
+              <p className="text-gray-300"><span style={{ fontWeight: 'bold', color:"#f3ac12"}}>Block: </span>{block}</p>
+              <p className="text-gray-300"><span style={{ fontWeight: 'bold', color:"#f3ac12"}}>Timestamp: </span>{new Date(timestamp).toLocaleString()}</p>
 
               {operationType === "custom_json" && operationDetails && (
                 <>
-                  <p className="text-gray-600">ID: {operationDetails.id}</p>
-                  <p className="text-gray-600">
+                  <p className="text-gray-300">ID: {operationDetails.id}</p>
+                  <p className="text-gray-300">
                     JSON: {JSON.stringify(JSON.parse(operationDetails.json), null, 2)}
                   </p>
-                  <p className="text-gray-600">
+                  <p className="text-gray-300">
                     Posting Auths: {operationDetails.required_posting_auths.join(", ")}
                   </p>
                 </>
