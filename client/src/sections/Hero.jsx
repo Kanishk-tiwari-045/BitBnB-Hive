@@ -267,6 +267,7 @@ const Hero = () => {
                 <Button icon="/images/logout.svg" onClick={handleLogout} className="btn btn-primary mb-2 mb-lg-0">
                   Logout
                 </Button>
+                {error && <p style={{ color: "red" }}>{error}</p>}
                 <div className="d-none d-lg-block" style={{ width: '1px', height: '10px', backgroundColor: 'transparent' }}></div>
                   <TransactionHistory hiveUsername={username} />
 
@@ -294,7 +295,6 @@ const Hero = () => {
                 </Button>
               )}
             </div>
-            {error && <p style={{ color: "red" }}>{error}</p>}
           </div>
           <div className="absolute -top-32 left-[calc(50%-340px)] w-[1230px] pointer-events-none hero-img_res">
             <img
