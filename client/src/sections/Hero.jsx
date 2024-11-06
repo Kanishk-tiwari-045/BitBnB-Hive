@@ -3,6 +3,7 @@ import { Element } from "react-scroll";
 import Button from "../components/Button.jsx";
 import axios from "axios";
 import "aos/dist/aos.css";
+import process from "process";
 import TransactionHistory from "../components/TransactionHistory.jsx";
 
 // API keys for Pinata

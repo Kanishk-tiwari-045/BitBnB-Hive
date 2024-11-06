@@ -11,12 +11,13 @@ const TransactionItem = ({ transaction, index }) => {
   return (
     <div className="relative z-2 mb-16">
       <div
-        className="group relative flex cursor-pointer items-center justify-between gap-10 px-7 py-4"
+        className="group relative flex cursor-pointer items-center justify-between gap-10 px-7 py-1"
         onClick={() => {
           setActiveId(
             activeId === transaction.trx_id ? null : transaction.trx_id
           );
         }}
+        style={{marginTop: '50px'}}
       >
         <div className="flex-1">
           <div className="small-compact mb-1.5 text-white max-lg:hidden">
