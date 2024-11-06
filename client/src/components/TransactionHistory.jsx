@@ -48,10 +48,16 @@ const TransactionItem = ({ transaction, index }) => {
           <div className="px-7 py-1">
             {transaction.op.type === "custom_json_operation" &&
               transaction.op.value.json.includes("fileName") && (
-                <p className="text-white">
-                  File Name: {JSON.parse(transaction.op.value.json).fileName}
-                </p>
+                <div className="text-white">
+                  <p>
+                    File Name: {JSON.parse(transaction.op.value.json).fileName}
+                  </p>
+                  {/* <p>
+                    IPFS Hash: {JSON.parse(transaction.op.value.json).ipfsHash}
+                  </p> */}
+                </div>
               )}
+
             <p className="text-white">Transaction ID: {transaction.trx_id}</p>
             <p className="text-white">Block: {transaction.block}</p>
             <p className="text-white">
