@@ -45,25 +45,39 @@ const TransactionItem = ({ transaction, index }) => {
 
       <SlideDown>
         {activeId === transaction.trx_id && (
-          <div className="px-7 py-3.5">
+          <div className="px-7 py-1">
+            {transaction.op.type === "custom_json_operation" &&
+              transaction.op.value.json.includes("fileName") && (
+                <div className="text-white">
+                  <p>
+                    File Name: {JSON.parse(transaction.op.value.json).fileName}
+                  </p>
+                  {/* <p>
+                    IPFS Hash: {JSON.parse(transaction.op.value.json).ipfsHash}
+                  </p> */}
+                </div>
+              )}
+
             <p className="text-white">Transaction ID: {transaction.trx_id}</p>
             <p className="text-white">Block: {transaction.block}</p>
             <p className="text-white">
-              Timestamp: {new Date(transaction.timestamp).toLocaleString()}
+              Timestamp:{" "}
+              {new Intl.DateTimeFormat("en-IN", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: true,
+              }).format(
+                new Date(
+                  new Date(transaction.timestamp).getTime() +
+                    5.5 * 60 * 60 * 1000
+                )
+              )}
             </p>
-            {transaction.op[0] === "custom_json" && transaction.op[1] && (
-              <>
-                <p className="text-white">ID: {transaction.op[1].id}</p>
-                <p className="text-white">
-                  JSON:{" "}
-                  {JSON.stringify(JSON.parse(transaction.op[1].json), null, 2)}
-                </p>
-                <p className="text-white">
-                  Posting Auths:{" "}
-                  {transaction.op[1].required_posting_auths.join(", ")}
-                </p>
-              </>
-            )}
           </div>
         )}
       </SlideDown>
