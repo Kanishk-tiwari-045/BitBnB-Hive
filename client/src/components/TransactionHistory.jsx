@@ -11,20 +11,22 @@ const TransactionItem = ({ transaction, index }) => {
   return (
     <div className="relative z-2 mb-16">
       <div
-        className="group relative flex cursor-pointer items-center justify-between gap-10 px-7"
+        className="group relative flex cursor-pointer items-center justify-between gap-10 px-7 py-4"
         onClick={() => {
-          setActiveId(activeId === transaction.trx_id ? null : transaction.trx_id);
+          setActiveId(
+            activeId === transaction.trx_id ? null : transaction.trx_id
+          );
         }}
       >
         <div className="flex-1">
-          <div className="small-compact mb-1.5 text-p3 max-lg:hidden">
+          <div className="small-compact mb-1.5 text-white max-lg:hidden">
             {index < 10 ? "0" : ""}
             {index + 1}
           </div>
           <div
             className={clsx(
-              "h6 text-p4 transition-colors duration-500 max-md:flex max-md:min-h-20 max-md:items-center",
-              active && "max-lg:text-p1",
+              "h6 text-white transition-colors duration-500 max-md:flex max-md:min-h-20 max-md:items-center",
+              active && "text-yellow-400"
             )}
           >
             {transaction.op[0]} {/* Operation Type */}
@@ -33,8 +35,8 @@ const TransactionItem = ({ transaction, index }) => {
 
         <div
           className={clsx(
-            "faq-icon relative flex size-12 items-center justify-center rounded-full border-2 border-s2 shadow-400 transition-all duration-500 group-hover:border-s4",
-            active && "before:bg-p1 after:rotate-0 after:bg-p1",
+            "faq-icon relative flex size-12 items-center justify-center rounded-full border-2 border-gray-700 shadow-400 transition-all duration-500 group-hover:border-yellow-400",
+            active && "before:bg-yellow-400 after:rotate-0 after:bg-yellow-400"
           )}
         >
           <div className="g4 size-11/12 rounded-full shadow-300" />
@@ -43,18 +45,22 @@ const TransactionItem = ({ transaction, index }) => {
 
       <SlideDown>
         {activeId === transaction.trx_id && (
-          <div className="body-3 px-7 py-3.5">
-            <p className="text-gray-600">Transaction ID: {transaction.trx_id}</p>
-            <p className="text-gray-600">Block: {transaction.block}</p>
-            <p className="text-gray-600">Timestamp: {new Date(transaction.timestamp).toLocaleString()}</p>
+          <div className="px-7 py-3.5">
+            <p className="text-white">Transaction ID: {transaction.trx_id}</p>
+            <p className="text-white">Block: {transaction.block}</p>
+            <p className="text-white">
+              Timestamp: {new Date(transaction.timestamp).toLocaleString()}
+            </p>
             {transaction.op[0] === "custom_json" && transaction.op[1] && (
               <>
-                <p className="text-gray-600">ID: {transaction.op[1].id}</p>
-                <p className="text-gray-600">
-                  JSON: {JSON.stringify(JSON.parse(transaction.op[1].json), null, 2)}
+                <p className="text-white">ID: {transaction.op[1].id}</p>
+                <p className="text-white">
+                  JSON:{" "}
+                  {JSON.stringify(JSON.parse(transaction.op[1].json), null, 2)}
                 </p>
-                <p className="text-gray-600">
-                  Posting Auths: {transaction.op[1].required_posting_auths.join(", ")}
+                <p className="text-white">
+                  Posting Auths:{" "}
+                  {transaction.op[1].required_posting_auths.join(", ")}
                 </p>
               </>
             )}
@@ -65,11 +71,11 @@ const TransactionItem = ({ transaction, index }) => {
       <div
         className={clsx(
           "g5 -bottom-7 -top-7 left-0 right-0 -z-1 rounded-3xl opacity-0 transition-opacity duration-500 absolute",
-          active && "opacity-100",
+          active && "opacity-100"
         )}
       >
         <div className="g4 absolute inset-0.5 -z-1 rounded-3xl" />
-        <div className="absolute left-8 top-0 h-0.5 w-40 bg-p1" />
+        <div className="absolute left-8 top-0 h-0.5 w-40 bg-yellow-400" />
       </div>
     </div>
   );
@@ -97,7 +103,9 @@ const TransactionHistory = ({ hiveUsername }) => {
           body: JSON.stringify(payload),
         });
         if (!response.ok) {
-          throw new Error(`Failed to fetch transactions: ${response.statusText}`);
+          throw new Error(
+            `Failed to fetch transactions: ${response.statusText}`
+          );
         }
         const { result } = await response.json();
         setTransactions(result.history);
@@ -114,20 +122,28 @@ const TransactionHistory = ({ hiveUsername }) => {
     }
   }, [hiveUsername]);
 
-  if (loading) return <div>Loading transaction history...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (!transactions.length) return <div>No transactions found for this user.</div>;
+  if (loading)
+    return <div className="text-white">Loading transaction history...</div>;
+  if (error) return <div className="text-white">Error: {error}</div>;
+  if (!transactions.length)
+    return (
+      <div className="text-white">No transactions found for this user.</div>
+    );
 
   return (
     <div className="mt-12">
-      <motion.h3 className="text-3xl font-semibold text-blue-700 mb-4">
+      <motion.h3 className="text-3xl font-semibold text-yellow-400 mb-4">
         Transaction History
       </motion.h3>
-      <div className="faq-glow_before relative z-2 border-2 border-s2 bg-s1">
+      <div className="faq-glow_before relative z-2 border-2 border-gray-700 bg-gray-900">
         <div className="container flex gap-10 max-lg:block">
           <div className="relative flex-1 pt-24">
             {transactions.map(([index, transaction]) => (
-              <TransactionItem key={transaction.trx_id} transaction={transaction} index={index} />
+              <TransactionItem
+                key={transaction.trx_id}
+                transaction={transaction}
+                index={index}
+              />
             ))}
           </div>
         </div>
