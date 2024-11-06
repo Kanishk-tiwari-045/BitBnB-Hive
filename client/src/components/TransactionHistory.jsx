@@ -49,8 +49,24 @@ const TransactionItem = ({ transaction, index }) => {
             <p className="text-white">Transaction ID: {transaction.trx_id}</p>
             <p className="text-white">Block: {transaction.block}</p>
             <p className="text-white">
-              Timestamp: {new Date(transaction.timestamp).toLocaleString()}
+              Timestamp:{" "}
+              {new Intl.DateTimeFormat("en-IN", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: true,
+              }).format(
+                new Date(
+                  new Date(transaction.timestamp).getTime() +
+                    5.5 * 60 * 60 * 1000
+                )
+              )}
             </p>
+
             {transaction.op[0] === "custom_json" && transaction.op[1] && (
               <>
                 <p className="text-white">ID: {transaction.op[1].id}</p>
