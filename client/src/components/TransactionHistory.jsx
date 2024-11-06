@@ -58,10 +58,12 @@ const TransactionItem = ({ transaction, index }) => {
                 </div>
               )}
 
-            <p className="text-white">Transaction ID: {transaction.trx_id}</p>
-            <p className="text-white">Block: {transaction.block}</p>
             <p className="text-white">
-              Timestamp:{" "}
+              <span style={{ fontWeight: '600', color: '#f3ac12' }}>Transaction ID:</span> {transaction.trx_id}
+            </p>
+            <p className="text-white"><span style={{ fontWeight: '600', color: '#f3ac12' }}>Block: </span>{transaction.block}</p>
+            <p className="text-white"><span style={{ fontWeight: '600', color: '#f3ac12' }}>
+              Timestamp: </span>{" "}
               {new Intl.DateTimeFormat("en-IN", {
                 weekday: "long",
                 year: "numeric",

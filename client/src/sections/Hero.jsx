@@ -232,68 +232,42 @@ const Hero = () => {
               Decentralized hosting for websites, images, and more—empowering
               you with full control in a Web3 environment.
             </p>
-            <div className="d-flex flex-row align-items-start">
-              {username ? (
-                <>
-                  <p
-                    style={{
-                      color: "#f3ac12",
-                      fontSize: "1.5rem",
-                      fontWeight: "600",
-                    }}
-                  >
+            <div className="d-flex flex-column flex-lg-row align-items-center justify-content-start gap-3 p-3">
+            {username ? (
+              <>
+                <p style={{ color: '#f3ac12', fontSize: '1.5rem', fontWeight: '600' }}>
                     Welcome, {username}!
+                </p>
+
+                {/* Divider for larger screens */}
+                <div className="d-none d-lg-block" style={{ width: '1px', height: '20px', backgroundColor: 'transparent' }}></div>
+                <input 
+                  id="file-upload" 
+                  type="file" 
+                  onChange={handleFileChange}  
+                  className="d-none"
+                />
+                <div className="d-none d-lg-block" style={{ width: '1px', height: '20px', backgroundColor: 'transparent' }}></div>
+              
+                {/* Submit Button */}
+                <Button icon="/images/zap.svg" onClick={handleUpload} className="btn btn-primary mb-2 mb-lg-0">
+                  {loading ? 'Uploading...' : 'Submit'}
+                </Button>
+              
+                {/* Divider for larger screens */}
+                <div className="d-none d-lg-block" style={{ width: '1px', height: '10px', backgroundColor: 'transparent' }}></div>
+                {/* IPFS Link Display */}
+                {ipfsLink && (
+                  <p className="small mt-2 mb-2 mb-lg-0">
+                    <a href={ipfsLink} target="_blank" rel="noopener noreferrer">{ipfsLink}</a>
                   </p>
-                  <div className="flex items-center space-x-4">
-                    <label
-                      htmlFor="file-upload"
-                      className="inline-block px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer hover:bg-blue-600 transition"
-                    >
-                      Choose File
-                    </label>
-                    <input
-                      id="file-upload"
-                      type="file"
-                      onChange={handleFileChange}
-                      className="hidden"
-                    />
-                    {fileName && (
-                      <p className="text-sm text-gray-300">
-                        Selected File: {fileName}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="flex space-x-4 mt-3">
-                    <Button
-                      icon="/images/zap.svg"
-                      onClick={handleUpload}
-                      className="bg-green-600 hover:bg-green-700"
-                    >
-                      {loading ? "Uploading..." : "Submit"}
-                    </Button>
-                    <Button
-                      // icon="/images/logout.svg"
-                      onClick={handleLogout}
-                      className="bg-red-600 hover:bg-red-700"
-                    >
-                      Logout
-                    </Button>
-                  </div>
-
-                  {ipfsLink && (
-                    <p style={{ marginBottom: "20px" }}>
-                      IPFS link:{" "}
-                      <a
-                        href={ipfsLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {ipfsLink}
-                      </a>
-                    </p>
-                  )}
-
+                )}
+                <div className="d-none d-lg-block" style={{ width: '1px', height: '10px', backgroundColor: 'transparent' }}></div>
+                {/* Logout Button */}
+                <Button icon="/images/logout.svg" onClick={handleLogout} className="btn btn-primary mb-2 mb-lg-0">
+                  Logout
+                </Button>
+                <div className="d-none d-lg-block" style={{ width: '1px', height: '10px', backgroundColor: 'transparent' }}></div>
                   <TransactionHistory hiveUsername={username} />
 
                   <ul className="space-y-3 mt-3">
