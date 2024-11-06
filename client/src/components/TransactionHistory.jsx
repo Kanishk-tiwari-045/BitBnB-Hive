@@ -147,21 +147,18 @@ const TransactionHistory = ({ hiveUsername }) => {
     );
 
   return (
-    <div className="mt-12">
+    <div className="mt-12 w-full">
       <motion.h3 className="text-3xl font-semibold text-yellow-400 mb-4">
         Transaction History
       </motion.h3>
-      <div className="faq-glow_before relative z-2 border-2 border-gray-700 bg-gray-900">
-        <div className="container flex gap-10 max-lg:block">
-          <div className="relative flex-1 pt-24">
-            {transactions.map(([index, transaction]) => (
-              <TransactionItem
-                key={transaction.trx_id}
-                transaction={transaction}
-                index={index}
-              />
-            ))}
-          </div>
+      <div className="faq-glow_before relative z-2 border-2 border-gray-700 bg-gray-900 w-full">
+        {/* CSS Grid for 2-column layout, adjusts on larger screens */}
+        <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-10 max-lg:block w-full">
+          {transactions.map(([index, transaction]) => (
+            <div className="relative w-full flex-1" key={transaction.trx_id}>
+              <TransactionItem transaction={transaction} index={index} />
+            </div>
+          ))}
         </div>
       </div>
     </div>
