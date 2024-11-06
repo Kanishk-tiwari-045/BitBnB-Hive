@@ -6,10 +6,9 @@ import "aos/dist/aos.css";
 import TransactionHistory from "../components/TransactionHistory.jsx";
 
 // API keys for Pinata
-const pinataApiKey = "5004f4bb6975fc5b3dd5";
-const pinataSecretApiKey =
-  "6abc06dfffd3a54a34982349ad6281a1af35852849204db6148be88ed8444995";
-const ipfsBackendUrl = "http://localhost:8080/upload";
+const pinataApiKey = process.env.REACT_APP_PINATA_API_KEY;
+const pinataSecretApiKey = process.env.REACT_APP_PINATA_SECRET_API_KEY;
+const ipfsBackendUrl = process.env.REACT_APP_IPFS_BACKEND_URL;
 
 const Hero = () => {
   const [username, setUsername] = useState(() =>
