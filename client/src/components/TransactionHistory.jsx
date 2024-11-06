@@ -45,7 +45,13 @@ const TransactionItem = ({ transaction, index }) => {
 
       <SlideDown>
         {activeId === transaction.trx_id && (
-          <div className="px-7 py-3.5">
+          <div className="px-7 py-1">
+            {transaction.op.type === "custom_json_operation" &&
+              transaction.op.value.json.includes("fileName") && (
+                <p className="text-white">
+                  File Name: {JSON.parse(transaction.op.value.json).fileName}
+                </p>
+              )}
             <p className="text-white">Transaction ID: {transaction.trx_id}</p>
             <p className="text-white">Block: {transaction.block}</p>
             <p className="text-white">
@@ -66,20 +72,6 @@ const TransactionItem = ({ transaction, index }) => {
                 )
               )}
             </p>
-
-            {transaction.op[0] === "custom_json" && transaction.op[1] && (
-              <>
-                <p className="text-white">ID: {transaction.op[1].id}</p>
-                <p className="text-white">
-                  JSON:{" "}
-                  {JSON.stringify(JSON.parse(transaction.op[1].json), null, 2)}
-                </p>
-                <p className="text-white">
-                  Posting Auths:{" "}
-                  {transaction.op[1].required_posting_auths.join(", ")}
-                </p>
-              </>
-            )}
           </div>
         )}
       </SlideDown>
