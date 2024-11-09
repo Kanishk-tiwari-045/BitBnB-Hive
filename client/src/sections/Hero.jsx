@@ -8,7 +8,7 @@ import TransactionHistory from "../components/TransactionHistory.jsx";
 
 // const pinataApiKey = process.env.REACT_APP_PINATA_API_KEY;
 // const pinataSecretApiKey = process.env.REACT_APP_PINATA_SECRET_API_KEY;
-const ipfsBackendUrl = "https://bit-bn-b-hive-n4sj.vercel.app/upload";
+const ipfsBackendUrl = "http://localhost:8080/upload";
 
 const Hero = () => {
   const [username, setUsername] = useState(() =>
