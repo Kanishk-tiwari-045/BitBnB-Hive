@@ -10,7 +10,6 @@ import URL from './models/url.js';
 dotenv.config();
 
 const app = express();
-app.use(cors());
 app.use(express.json());
 
 // MongoDB URI (replace with your own connection string)
@@ -23,16 +22,27 @@ mongoose.connect(mongoURI)
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-// Initialize IPFS (setup only once)
+app.use(cors({
+  origin: ["http://localhost:5173", "https://bit-bn-b-hive.vercel.app"] // add your deployed frontend URL
+}));
+
+// Initialize IPFS (with retry)
 let ipfs;
-async function initializeIpfs() {
-  try {
-    ipfs = await create();
-    console.log("IPFS node is ready");
-  } catch (error) {
-    console.error("Failed to initialize IPFS:", error);
-    process.exit(1);
+async function initializeIpfs(retries = 3, delay = 2000) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      ipfs = await create();
+      console.log("IPFS node is ready");
+      return;
+    } catch (error) {
+      console.error("Failed to initialize IPFS:", error);
+      if (i < retries - 1) {
+        console.log(`Retrying IPFS initialization in ${delay / 1000} seconds...`);
+        await new Promise(res => setTimeout(res, delay));
+      }
+    }
   }
+  process.exit(1);
 }
 initializeIpfs();
 
