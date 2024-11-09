@@ -6,10 +6,9 @@ import "aos/dist/aos.css";
 import process from "process";
 import TransactionHistory from "../components/TransactionHistory.jsx";
 
-// API keys for Pinata
-const pinataApiKey = process.env.REACT_APP_PINATA_API_KEY;
-const pinataSecretApiKey = process.env.REACT_APP_PINATA_SECRET_API_KEY;
-const ipfsBackendUrl = process.env.REACT_APP_IPFS_BACKEND_URL;
+// const pinataApiKey = process.env.REACT_APP_PINATA_API_KEY;
+// const pinataSecretApiKey = process.env.REACT_APP_PINATA_SECRET_API_KEY;
+const ipfsBackendUrl = "http://localhost:8080/upload";
 
 const Hero = () => {
   const [username, setUsername] = useState(() =>
@@ -158,8 +157,8 @@ const Hero = () => {
           {
             headers: {
               "Content-Type": `multipart/form-data`,
-              pinata_api_key: pinataApiKey,
-              pinata_secret_api_key: pinataSecretApiKey,
+              pinata_api_key: '40398c25ee3c843827b0',
+              pinata_secret_api_key: 'c4ce5bea124ed818ce8340a9d4b9a07154bf5044a7cb1a6300c5493c89433850',
             },
           }
         );
@@ -269,21 +268,15 @@ const Hero = () => {
                 </Button>
                 {error && <p style={{ color: "red" }}>{error}</p>}
                 <div className="d-none d-lg-block" style={{ width: '1px', height: '10px', backgroundColor: 'transparent' }}></div>
-                  <TransactionHistory hiveUsername={username} />
-
-                  <ul className="space-y-3 mt-3">
-                    {transactions.map((tx, index) => (
-                      <li
-                        key={index}
-                        className="bg-gray-800 text-gray-300 p-3 rounded-md"
-                      >
-                        <strong>Date:</strong>{" "}
-                        {new Date(tx.timestamp).toLocaleDateString()}
-                        <br />
-                        <strong>IPFS Hash:</strong> {tx.ipfsHash}
-                      </li>
-                    ))}
-                  </ul>
+                <TransactionHistory hiveUsername={username} />
+                <ul className="list-disc list-inside text-sm text-gray-400">
+                  {transactions.map(([id, tx]) => (
+                    <li key={id}>
+                      <strong>Date:</strong> {new Date(tx.timestamp).toLocaleDateString()} <br />
+                      <strong>IPFS Hash:</strong> {JSON.parse(tx.op[1].json).ipfsHash}
+                    </li>
+                  ))}
+                </ul>
                 </>
               ) : (
                 <Button

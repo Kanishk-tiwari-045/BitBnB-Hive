@@ -17,7 +17,7 @@ const TransactionItem = ({ transaction, index }) => {
             activeId === transaction.trx_id ? null : transaction.trx_id
           );
         }}
-        style={{marginTop: '50px'}}
+        style={{ marginTop: '50px' }}
       >
         <div className="flex-1">
           <div className="small-compact mb-1.5 text-white max-lg:hidden">
@@ -156,7 +156,7 @@ const TransactionHistory = ({ hiveUsername }) => {
         {/* CSS Grid for 2-column layout, adjusts on larger screens */}
         <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-10 max-lg:block w-full">
           {transactions.map(([index, transaction]) => (
-            <div className="relative w-full flex-1" key={transaction.trx_id}>
+            <div className="relative w-full flex-1" key={`${transaction.trx_id}-${index}`}>
               <TransactionItem transaction={transaction} index={index} />
             </div>
           ))}
